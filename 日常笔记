@@ -1,0 +1,109 @@
+string
+C++ string类的size()和length()的返回值是无符号数，在有符号整型和无符号整型的比较中，自动将有符号整型数转换为无符号整型。
+string中数字字符向数字型转换时，string中的低位为整数的高位
+memset赋值时包string头文件。用法memset(vis,false,sizeof(vis));
+string读入和输出整个字符串用cin和cout（输出也可用printf（“s%”......），用string中的c_str()将string型变成字符数组）。
+substr(int star,int len);
+toupper()字母小转大，tolower()字母大转小
+初始化
+string s1(“hello”);
+string s1="hello";
+string s3=s1+”world”;  //合法操作
+string s4=”hello”+”world”;  //非法操作：两个字符串字面值相加
+to_string(type value);type可以是任意数字类型如：//double f = 23.43; std::string f_str = std::to_string(f);输出23.430000
+
+出错
+超时时看看是否因为循环变量忘记改变
+熟记std函数名称
+数组
+leetcode1 特判数组空
+leetcode2 初始化指针
+函数
+cmath
+abs( )主要用于对求整数的绝对值，在“stdlib.h”(或 <cstdlib>)头文件里面。
+而fabs( )主要是求精度要求更高的double ，float 型的绝对值，在<cmath>头文件里。
+两者在只#include<cmath>时都可以使用。
+类似函数：abs
+C++中
+cmah定义了fabs()；cstdlib定义了abs(),labs();但这些都是继承自C的。
+数学函数,所在函数库为math.h、stdlib.h、string.h、float.h 
+int abs(int i) 返回整型参数i的绝对值 
+double cabs(struct complex znum) 返回复数znum的绝对值 
+double fabs(double x) 返回双精度参数x的绝对值 
+long labs(long n) 返回长整型参数n的绝对值 
+double exp(double x) 返回指数函数ex的值 
+double frexp(double value,int *eptr) 返回value=x*2n中x的值,n存贮在eptr中 
+double ldexp(double value,int exp); 返回value*2exp的值 
+double log(double x) 返回logex的值 
+double log10(double x) 返回log10x的值 
+double pow(double x,double y) 返回xy的值 
+double pow10(int p) 返回10p的值 
+double sqrt(double x) 返回+√x的值 
+double acos(double x) 返回x的反余弦cos-1(x)值,x为弧度 
+double asin(double x) 返回x的反正弦sin-1(x)值,x为弧度 
+double atan(double x) 返回x的反正切tan-1(x)值,x为弧度 
+double atan2(double y,double x) 返回y/x的反正切tan-1(x)值,y的x为弧度 
+double cos(double x) 返回x的余弦cos(x)值,x为弧度 
+double sin(double x) 返回x的正弦sin(x)值,x为弧度 
+double tan(double x) 返回x的正切tan(x)值,x为弧度 
+double cosh(double x) 返回x的双曲余弦cosh(x)值,x为弧度 
+double sinh(double x) 返回x的双曲正弦sinh(x)值,x为弧度 
+double tanh(double x) 返回x的双曲正切tanh(x)值,x为弧度 
+double hypot(double x,double y) 返回直角三角形斜边的长度(z), 
+x和y为直角边的长度,z2=x2+y2 
+double ceil(double x) 返回不小于x的最小整数 
+double floor(double x) 返回不大于x的最大整数 
+void srand(unsigned seed) 初始化随机数发生器 
+int rand() 产生一个随机数并返回这个数 
+double poly(double x,int n,double c[])从参数产生一个多项式 
+double modf(double value,double *iptr)将双精度数value分解成尾数和阶 
+double fmod(double x,double y) 返回x/y的余数 
+double frexp(double value,int *eptr) 将双精度数value分成尾数和阶 
+double atof(char *nptr) 将字符串nptr转换成浮点数并返回这个浮点数 
+double atoi(char *nptr) 将字符串nptr转换成整数并返回这个整数 
+double atol(char *nptr) 将字符串nptr转换成长整数并返回这个整数 
+char *ecvt(double value,int ndigit,int *decpt,int *sign) 
+将浮点数value转换成字符串并返回该字符串 
+char *fcvt(double value,int ndigit,int *decpt,int *sign) 
+将浮点数value转换成字符串并返回该字符串 
+char *gcvt(double value,int ndigit,char *buf) 
+将数value转换成字符串并存于buf中,并返回buf的指针 
+char *ultoa(unsigned long value,char *string,int radix)
+字符
+<cctype>
+isalpha()用来判断一个字符是否为字母，如果是字符则返回非零，否则返回零
+isalnum()用来判断一个字符是否为数字或者字母，也就是说判断一个字符是否属于a~z||A~Z||0~9。
+islower()用来判断一个字符是否为小写字母，也就是是否属于a~z。
+isupper()和islower相反，用来判断一个字符是否为大写字母。
+isblank（space和\t）和 isspace（space、\t、\r、\n）
+isdigit  判断是否为十进制数符(0~9)
+NOTE
+break应该跳出一层循环
+排序
+sort中（cmp默认从小到大，可通过重载改变）
+对map中<, >重载
+struct Node{
+	int x, y;
+	Node(){}
+	Node(int a, int b){
+		x = a, y = b;
+	}
+	bool operator < (const Node& other) const{
+		if(x != other.x) return x < other.x;
+		else return y < other.y;
+	}
+};
+获取随机数（具体见收藏）
+int min,max;
+//定义上下边界
+default_random_engine e;
+//创建引擎
+uniform_int_distribution<unsigned> u(min,max);
+//创建取值范围
+int randNum=u(e);
+//获取伪随机数
+位运算
+移位时，用unsigned int(用int时可能编译错误,1左移32位变为了INT_MIN)
+输入输出
+cin和cout的输入和输出效率比scanf与printf，而cin，cout之所以效率低，是因为先把要输出的东西存入缓冲区，再输出，导致效率降低，而这段语句（ios::sync_with_stdio(false);）可以来打消iostream的输入 输出缓存，可以节省许多时间，使效率与scanf与printf相差无几，还有应注意的是scanf与printf使用的头文件应是stdio.h而 不是iostream。
+cin.get()=="/n"||cin.eof();//输入结束
