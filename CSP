@@ -1,0 +1,110 @@
+/**2019-12-1**/
+#include<cstdio>
+bool judge(int x){
+	if(x%7==0)return true;
+	int y=0;
+	while(x>0){
+		y=x%10;
+		if(y==7)return true;
+		x=x/10;
+	}
+	return false;
+}
+int a[4]={0};
+int main(){
+	int n,i=1,count=1;
+	scanf("%d",&n);
+	while(count<=n){
+		if(judge(i)){
+			++a[(i-1)%4];
+		}
+		else ++count;
+		++i;
+	}
+	for(int b=0;b<4;++b){
+		printf("%d\n",a[b]);
+	}
+	return 0;
+}
+/**2019-12-2**/
+#include<iostream>
+#include<map>
+#include<cstring>
+using namespace std;
+struct Node{
+	int x,y;
+	Node(int a,int b):x(a),y(b){}
+	bool operator<(const Node other)const{//?
+		if(x!=other.x){
+			return x<other.x;
+		}
+		else return y<other.y;
+	}
+};
+int xpole[4]={0,1,0,-1};
+int ypole[4]={1,0,-1,0};
+int cnt[5];
+map<Node,int> mp;
+bool fun(Node c){
+	for(int i=0;i<4;++i){
+		int x=c.x+xpole[i];
+		int y=c.y+ypole[i];
+		if(mp.find(Node(x,y))==mp.end())return false;
+	}
+	if(mp.find(Node(c.x+1,c.y+1))!=mp.end())++mp[c];
+    if(mp.find(Node(c.x+1,c.y-1))!=mp.end())++mp[c];
+	if(mp.find(Node(c.x-1,c.y-1))!=mp.end())++mp[c];
+	if(mp.find(Node(c.x-1,c.y+1))!=mp.end())++mp[c];
+	return true;	
+}
+int main(){
+	int n;
+	memset(cnt,0,sizeof(cnt));//必须包括string头文件 
+	cin>>n;
+	while(n--){
+		int px,py;
+		cin>>px>>py;
+		mp[Node(px,py)]=0;
+	}
+	for(map<Node,int>::iterator it=mp.begin();it!=mp.end();++it){
+		if(fun(it->first))++cnt[it->second];
+	}
+	for(int k=0;k<5;++k){
+		cout<<cnt[k]<<endl;
+	}
+	return 0;
+}
+/**2019-12-3**/
+#include <bits/stdc++.h>
+using namespace std;
+using LL = long long;  //类型别名
+int main() {
+    //键为坐标，值对应该坐标上下左右四个邻居位置存在垃圾的个数和四个对角位置中存在垃圾的个数
+    map<array<LL, 2>, array<LL, 2>> m;
+    LL n;
+    array<LL, 2> p;
+    cin >> n;
+    while (n--) {
+        cin >> p[0] >> p[1];
+        m.insert({p, {0, 0}});  //将当前坐标插入哈希表中，默认邻居位置和对角位置垃圾个数均为0
+        for (auto& i : m) {
+            auto& p2 = i.first;
+            if ((abs(p[0] - p2[0]) == 1 and p[1] == p2[1]) or
+                (p[0] == p2[0] and abs(p[1] - p2[1]) == 1)) {  //邻居位置存在垃圾
+                ++m[p][0];
+                ++m[p2][0];
+            } else if (abs(p[0] - p2[0]) == 1 and abs(p[1] - p2[1]) == 1) {  //对角位置存在垃圾
+                ++m[p][1];
+                ++m[p2][1];
+            }
+        }
+    }
+    array<LL, 5> ans{};  //存储最终结果
+    for (auto& i : m)
+        if (i.second[0] == 4)  //当前坐标可以作为选址
+            ++ans[i.second[1]];  //递增其得分下的选址个数
+    for (auto i : ans)
+        cout << i << "\n";
+    return 0;
+}
+/**2019-12-4**/
