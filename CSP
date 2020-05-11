@@ -74,7 +74,7 @@ int main(){
 	}
 	return 0;
 }
-/**2019-12-3**/
+/**2019-12-2**/
 #include <bits/stdc++.h>
 using namespace std;
 using LL = long long;  //类型别名
@@ -107,4 +107,72 @@ int main() {
         cout << i << "\n";
     return 0;
 }
-/**2019-12-4**/
+/**2019-12-3**/
+#include<bits/stdc++.h>
+using namespace std;
+string formula;
+unordered_map<string,int> ans;
+int computeDigit(int& star,int last){
+	int num=0;
+	for(;star<=last&&isdigit(formula[star]);++star){
+		num=num*10+(formula[star]-'0');
+	}
+	return num==0?1:num;
+}
+void f(int star,int last,int e){
+	if(last==star||(last-star==1&&islower(formula[last]))){
+		ans[formula.substr(star,last-star+1)]+=e;
+		return;
+	}
+	e*=computeDigit(star,last);
+	for(int i=star,j=i+1;i<=last;i=j,++j){//取等号是因为如H2O，单元素O可能会落下 
+		if(isupper(formula[i])){
+			if(islower(formula[j]))
+			++j;
+			int t=j;
+			f(i,t-1,e*computeDigit(j,last));
+		}
+		else if(formula[i]=='('){
+			int index=1;
+			for(;index!=0;++j){
+				if(formula[j]=='(')
+				++index;
+				else if(formula[j]==')')
+				--index;
+			}
+			int t=j;
+			f(i+1,t-1,e*computeDigit(j,last));
+		}
+	}
+}
+void expression(int first,int last,int e){
+	for(int i=first,j=first;i<=last;i=j+1){//i<=last,假如i=last时，可能会漏掉 
+		j=formula.find('+',i);
+		if(j==string::npos or j>last)
+		j=last+1;
+		f(i,j-1,e);
+	}
+}
+int main(){
+	int n;
+	cin>>n;
+	while(n--){
+		cin>>formula;
+		ans.clear();
+		int pivot=formula.find('=');
+		int len=formula.size();
+		expression(0,pivot-1,1);
+		expression(pivot+1,len-1,-1);
+		int flag=0;
+		for(unordered_map<string,int>::iterator it=ans.begin();it!=ans.end();++it){
+			if(it->second!=0){
+				flag=1;
+				break;
+			}
+		}
+		if(flag)
+		cout<<"N"<<endl;
+		else cout<<"Y"<<endl;
+		}
+		return 0;
+}
