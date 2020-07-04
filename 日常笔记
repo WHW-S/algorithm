@@ -5,6 +5,10 @@ memset赋值时包string头文件。用法memset(vis,false,sizeof(vis));
 string读入和输出整个字符串用cin和cout（输出也可用printf（“s%”......），用string中的c_str()将string型变成字符数组）。
 substr(int star,int len);
 toupper()字母小转大，tolower()字母大转小
+c语言
+char *strrchr(const char *s,int c);
+在s中寻找最后一个匹配值
+
 初始化
 string s1(“hello”);
 string s1="hello";
