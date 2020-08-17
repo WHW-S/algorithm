@@ -1,0 +1,7 @@
+using arrt=sting[10];
+arrt &func();
+
+auto func() -> string(&)[10];
+
+stirng a[10];
+decltype(arrs) &func();
